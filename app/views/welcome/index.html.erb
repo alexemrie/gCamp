@@ -1,59 +1,65 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    ...
+<nav class="navbar-inverse navbar-fixed-top navbar-brand">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">gCamp</a>
+    </div>
   </div>
 </nav>
 
-<nav class="navbar navbar-inverse">
-  ...
-</nav>
-
-<div class="panel panel-default">
-  <div class="panel-heading">Panel heading without title</div>
-  <div class="panel-body">
-    Panel content
+<div class="container">
+  <div class="jumbotron">
+    <h1>gCamp</h1>
+    <p>Your life, organized.</p>
   </div>
-</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
-  </div>
-  <div class="panel-body">
-    Panel content
-  </div>
-</div>
 
-<div class="jumbotron">
-  <h1>gCamp</h1>
-  <p>Your life, organized.</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-</div>
+  <table class="table">
+    <div class="row">
+      <div class="col-md-4">
+        <%=image_tag("writing_tablet.jpg", class:"img-responsive")%>
+      </div>
+      <div class="col-md-4">
+        <%=image_tag("writing_paper.jpg", class:"img-responsive")%>
+      </div>
+      <div class="col-md-4">
+        <%=image_tag("looking_at_computer.jpg", class:"img-responsive")%>
+      </div>
+    </div>
+  </table>
 
-<div class="row">
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-  <div class="col-md-1">.col-md-1</div>
-</div>
-<div class="row">
-  <div class="col-md-8">.col-md-8</div>
-  <div class="col-md-4">.col-md-4</div>
-</div>
-<div class="row">
-  <div class="col-md-4">.col-md-4</div>
-  <div class="col-md-4">.col-md-4</div>
-  <div class="col-md-4">.col-md-4</div>
-</div>
-<div class="row">
-  <div class="col-md-6">.col-md-6</div>
-  <div class="col-md-6">.col-md-6</div>
+  <table class="table">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Tasks</div>
+          <div class="panel-body">
+            Grouped by projects and lists. Just the way you like em
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Permissions</div>
+          <div class="panel-body">
+            Fine-grained permissions
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Comments</div>
+          <div class="panel-body">
+            <ul>
+              <li>Comments on tasks and documents</li>
+              <li>Get email notifications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </table>
+
+
+
 </div>
