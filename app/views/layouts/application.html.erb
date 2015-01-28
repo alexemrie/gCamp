@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,25 @@
 </head>
 <body>
 
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">gCamp</a>
+      </div>
+    </div>
+  </nav>
+
 <%= yield %>
+
+<footer>
+    <div class="container">
+      <hr>
+      <%= link_to "About", about_path%>
+      |
+      <%= link_to "Terms", terms_path%>
+    </div>
+</footer>
+
 
 </body>
 </html>
