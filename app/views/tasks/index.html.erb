@@ -1,0 +1,10 @@
+  <h2>Listing Tasks</h2>
+
+  Description
+  <br>
+  <% @tasks.each do |task| %>
+    <p><%= link_to task.description, task_path(task) %></p>
+    <hr>
+  <% end %>
+
+  <%= link_to 'New Task', new_task_path(@task) %>
