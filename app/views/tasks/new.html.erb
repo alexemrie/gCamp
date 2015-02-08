@@ -1,17 +1,37 @@
-<h2>New Task</h2>
+<h1>
+  <div class= "page-header">
+    New Task
+  </div>
+</h1>
 
-<%= form_for @task do |f| %>
 
-  <%= f.label :description %>
+<ol class= "breadcrumb"
+  <li><%= link_to 'Tasks', tasks_path(@tasks) %></li> > <li class= "active">New Task</li>
+</ol>
 
-  <br>
 
-  <%= f.text_area :description %>
+<%= form_for @task, html: {class: "form-horizontal"}  do |f| %>
+  <div class="form-group">
 
-  <br>
+      <div class="col-md-2">
+        <%= f.label :description, class: "control-label" %>
+      </div>
 
-  <%= f.submit "Create Task" %>
+
+
+        <div class="col-md-4">
+          <%= f.text_field :description, class: "form-control" %>
+        </div>
+    </div>
+
+      <div class= "form-group">
+          <div class= "col-md-offset-2 col-md-10">
+              <%= f.submit "Create Task", class: "btn btn-primary" %>
+              <%= link_to 'cancel', tasks_path(@tasks), class: "btn btn-default" %>
+          </div>
+      </div>
+
+  </div>
+
 
 <% end %>
-
-<%= link_to 'Back', tasks_path(@tasks) %>
