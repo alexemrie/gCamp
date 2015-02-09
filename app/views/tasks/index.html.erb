@@ -6,22 +6,27 @@
 </h1>
 
 
+
 <table class="table">
+
   <thead>
-    <div class="row">
-      <div class="col-md-2">
-        <strong>Description</strong>
-      </div>
-    </div>
+    <tr>
+        <th colspan= 2>
+          <strong>Description</strong>
+        </th>
+    </tr>
   </thead>
-  <hr>
+
   <tbody>
     <% @tasks.each do |task| %>
-      <%= link_to task.description, task_path(task) %>
-        <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info pull-right" %>
-        <%= link_to 'Delete', task_path(task), method: "delete", class: "btn btn-danger pull-right" %>
-      <hr>
+    <tr>
+      <td><%= link_to task.description, task_path(task) %></td>
+          <td class = "text-right">
+            <%= link_to 'Delete', task_path(task), method: "delete", class: "btn btn-danger" %>
+            <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %>
+          </td>
     <% end %>
+  </tr>
   </tbody>
 
 </table>

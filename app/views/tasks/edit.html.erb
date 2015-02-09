@@ -1,17 +1,13 @@
-<%= form_for @task do |f| %>
+<h1>
+  <div class= "page-header">
+    Edit Task
+  </div>
+</h1>
 
-  <%= f.label :description %>
+<ol class= "breadcrumb">
+  <li><%= link_to 'Tasks', tasks_path(@tasks) %></li>
+  <li class= "active">Edit Task</li>
+</ol>
 
-  <br>
 
-  <%= f.text_area :description %>
-
-  <br>
-
-  <%= f.submit "Update Task" %>
-
-<% end %>
-
-<%= link_to 'Show', task_path(@task) %>
-|
-<%= link_to 'Back', tasks_path(@tasks) %>
+<%= render 'form' %>
