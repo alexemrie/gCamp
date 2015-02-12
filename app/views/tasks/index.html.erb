@@ -11,8 +11,11 @@
 
   <thead>
     <tr>
-        <th colspan= 2>
+        <th colspan= 1>
           <strong>Description</strong>
+        </th>
+        <th colspan= 2>
+          <strong>Due Date</strong>
         </th>
     </tr>
   </thead>
@@ -20,12 +23,16 @@
   <tbody>
     <% @tasks.each do |task| %>
     <tr>
-      <td>
-        <% if task.complete == true %>
+      <td class= "col-md-2">
+        <% if task.complete %>
           <s><%= link_to task.description, task_path(task) %></s>
         <% else %>
           <%= link_to task.description, task_path(task) %>
         <% end %>
+      </td>
+
+      <td class= "col-md-2">
+        <%= task.due_date.strftime("%m/%d/%Y") %>
       </td>
 
       <td class = "text-right">

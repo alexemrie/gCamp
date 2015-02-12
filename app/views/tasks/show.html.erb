@@ -11,6 +11,8 @@
 </h1>
 
 
+
+
 <br>
 
 
@@ -19,3 +21,6 @@
   <li><%= link_to 'Tasks', tasks_path(@tasks) %></li>
   <li><%= @task.description %></li>
 </ol>
+
+
+<h4> Due On: <%= @task.due_date.strftime("%m/%d/%Y") %></h4>
