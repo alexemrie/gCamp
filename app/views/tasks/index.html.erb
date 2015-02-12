@@ -32,7 +32,10 @@
       </td>
 
       <td class= "col-md-2">
-        <%= task.due_date.to_datetime.strftime("%m/%d/%Y") %>
+        <% if task.due_date %>
+          <%= task.due_date.strftime("%m/%d/%Y") %>
+        <% else %>
+        <% end %>
       </td>
 
       <td class = "text-right">
