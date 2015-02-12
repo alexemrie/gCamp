@@ -23,4 +23,7 @@
 </ol>
 
 
-<h4> Due On: <%= @task.due_date.strftime("%m/%d/%Y") %></h4>
+<h4>
+  Due On:
+  <%= @task.due_date.to_datetime.strftime("%m/%d/%Y") %>
+</h4>
