@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Gcamp</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -11,10 +12,11 @@
 
 <body>
 
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">gCamp</a>
+        <%= link_to "gCamp", root_path, class: "navbar-brand" %>
       </div>
     </div>
   </nav>
