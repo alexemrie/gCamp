@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/about' => 'about#index'
   get '/faq' => 'common_questions#index'
   resources :tasks
-  resources :users
+  resources :users, only: [:index, :new, :create]
 
 
 
