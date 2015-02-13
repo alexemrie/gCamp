@@ -23,7 +23,7 @@
   <% flash.each do |name, msg| %>
    <%= content_tag :div, msg, class: "alert alert-success" %>
   <% end %>
-  
+
   <%= yield %>
 
 </div>
@@ -38,6 +38,8 @@
       <%= link_to "Tasks", tasks_path%>
       |
       <%= link_to "FAQ", faq_path%>
+      |
+      <%= link_to "Users", users_path%>
 
 
         <%= link_to image_tag("Galvanize.png", class:"img-responsive small"), "https://students.gschool.it/students/268"%>
