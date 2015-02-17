@@ -35,7 +35,7 @@
             <%= f.submit name_of_button, class: "btn btn-primary" %>
 
             <% unless @user.new_record? %>
-              <%= link_to "Delete", user_path(@user), class: "btn btn-danger", method: "delete"  %>
+              <%= link_to "Delete", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Delete this user?"}  %>
             <% end %>
 
             <%= link_to 'cancel', users_path(), class: "btn btn-default" %>
