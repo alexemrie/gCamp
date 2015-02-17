@@ -33,9 +33,14 @@
     <div class= "form-group">
         <div class= "col-md-offset-2 col-md-10">
             <%= f.submit name_of_button, class: "btn btn-primary" %>
+
+            <% unless @user.new_record? %>
+              <%= link_to "Delete", user_path(@user), class: "btn btn-danger", method: "delete"  %>
+            <% end %>
+
             <%= link_to 'cancel', users_path(), class: "btn btn-default" %>
-        </div>
-    </div>
+       </div>
+   </div>
 
 
 

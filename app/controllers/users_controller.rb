@@ -31,6 +31,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.destroy(params[:id])
+
+    redirect_to users_path
+  end
+
   private
 
   def user_params
