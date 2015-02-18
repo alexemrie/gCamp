@@ -1,16 +1,18 @@
-<%= form_for @user do |f| %>
+<h1>
+  <div class="page-header">
+    <%= "#{@user.first_name} #{@user.last_name}" %>
 
-  <%= f.label :first_name %> <%= @user.first_name %>
-
-  <br>
-
-  <%= f.label :last_name %> <%= @user.last_name %>
-
-  <br>
-
-  <%= f.label :email %> <%= @user.email %>
-
-<% end %>
+    <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-info pull-right" %>
+  </div>
+</h1>
 
 
-<%= link_to "Back", users_path() %>
+
+<dl class="dl-horizontal">
+  <dt>First Name</dt>
+    <dd><%= @user.first_name %></dd>
+  <dt>Last Name</dt>
+    <dd><%= @user.last_name %></dd>
+  <dt>Email</dt>
+    <dd><%= mail_to @user.email %></dd>
+</dl>
