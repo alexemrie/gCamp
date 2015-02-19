@@ -39,6 +39,7 @@ class UsersController < ApplicationController
     User.destroy(params[:id])
 
     redirect_to users_path
+    flash[:success] = "User was successfully deleted"
   end
 
   private
