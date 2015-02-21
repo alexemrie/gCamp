@@ -1,23 +1,25 @@
-= form_for @user, html: {class: "form-horizontal"} do |f|
+= form_for @user, html: {class: "form-horizontal"}  do |f|
   .form-group
-    .col-md-2
-      =f.label :first_name, class: "control-label"
-    .col-md-3
-      =f.text_field :first_name, class: "form-control"
-
+    .col-md-2{:align => "right"}
+      = f.label :first_name, class: "control-label"
+    .col-md-5
+      = f.text_field :first_name, class: "form-control"
   .form-group
-    .col-md-2
-      =f.label :last_name, class: "form-label"
-    .col-md-3
-      =f.text_field :last_name, class: "form-control"
-
+    .col-md-2{:align => "right"}
+      = f.label :last_name, class: "form-label"
+    .col-md-5
+      = f.text_field :last_name, class: "form-control"
   .form-group
-    .col-md-2
-      =f.label :email, class: "form-label"
-    .col-md-3
-      =f.email_field :email, class: "form-control"
-
+    .col-md-2{:align => "right"}
+      = f.label :email, class: "form-label"
+    .col-md-5
+      = f.email_field :email, class: "form-control"
   .form-group
     .col-md-offset-2.col-md-10
-      =f.submit name_of_button, class: "btn btn-primary"
-      =link_to 'cancel', users_path(), class: "btn btn-default"
+      = f.submit name_of_button, class: "btn btn-primary"
+      = link_to 'cancel', users_path(), class: "btn btn-default"
+  .form-group
+    .col-md-offset-2.col-md-5{:align => "center"}
+      - unless @user.new_record?
+        .well
+          = link_to "Delete User", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Delete this user?"}
