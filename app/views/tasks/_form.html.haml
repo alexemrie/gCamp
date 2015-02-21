@@ -1,0 +1,23 @@
+= form_for @task, html: {class: "form-horizontal"} do |f|
+  .form-group
+    .col-md-2
+      = f.label :description, class: "control-label"
+    .col-md-4
+      = f.text_field :description, class: "form-control"
+
+  .form-group
+    .col-md-2
+      = f.label :due_date, class: "form-label"
+    .col-md-2
+      = f.date_field :due_date, class: "form-control"
+
+  - unless @task.new_record?
+    .form-group
+      .col-md-offset-2.col-md-10
+        = f.check_box :complete
+        = f.label :complete
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit name_of_button, class: "btn btn-primary"
+      = link_to 'cancel', tasks_path(), class: "btn btn-default"

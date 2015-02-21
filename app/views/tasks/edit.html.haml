@@ -1,0 +1,10 @@
+%h1
+  .page-header
+    Edit Task
+
+%ol.breadcrumb
+  %li= link_to 'Tasks', tasks_path(@tasks)
+  %li= link_to @task.description, task_path(@task)
+  %li.active Edit Task
+
+= render partial: 'form', locals: {name_of_button: "Update Task"}
