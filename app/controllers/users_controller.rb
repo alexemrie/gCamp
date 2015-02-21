@@ -16,6 +16,10 @@ class UsersController < ApplicationController
     flash[:success] = "User was successfully created"
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
 
   private
 

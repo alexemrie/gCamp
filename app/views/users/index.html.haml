@@ -1,0 +1,20 @@
+%h1
+  .page-header
+    = link_to 'New User', new_user_path(@user), class: "btn btn-info pull-right"
+    Users
+%table.table
+  %thead
+    %tr
+      %th{:colspan => "1"}
+        %strong Name
+      %th{:colspan => "2"}
+        %strong Email
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td.col-md-4
+          = link_to "#{user.first_name} #{user.last_name}", user_path(user)
+        %td.col-md-10
+          = mail_to user.email
+        %td.txt-right
+          = link_to "Edit", edit_user_path(user)
