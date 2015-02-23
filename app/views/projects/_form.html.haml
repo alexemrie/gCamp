@@ -5,7 +5,7 @@
         .alert.alert-danger
           %h3
             = pluralize(@project.errors.count, "error")
-            prohibited this item from being saved:
+            prohibited this form from being saved:
 
           %ul
             - @project.errors.full_messages.each do |message|
