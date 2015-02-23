@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  
+
   def index
     @tasks = Task.all
   end
@@ -9,12 +9,13 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    task.save
-
-    redirect_to task_path(task)
-    flash[:success] = 'Task was successfully created'
-
+    @task = Task.new(task_params)
+    if @task.save
+      flash[:success] = 'Task was successfully created'
+      redirect_to task_path(@task)
+    else
+      render :new
+    end
   end
 
 
@@ -34,10 +35,10 @@ class TasksController < ApplicationController
   end
 
   def update
-    task = Task.find(params[:id])
+    @task = Task.find(params[:id])
 
-    if task.update(task_params)
-      redirect_to task_path(task)
+    if @task.update(task_params)
+      redirect_to task_path(@task)
       flash[:success] = 'Task was successfully updated.'
     else
       render :edit
