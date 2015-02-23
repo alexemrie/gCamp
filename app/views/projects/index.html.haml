@@ -1,0 +1,14 @@
+%h1
+  .page-header
+    = link_to 'New Project', new_project_path(@project), class: "btn btn-info pull-right"
+    Projects
+%table.table
+  %thead
+    %tr
+      %th{:colspan => "1"}
+        Name
+  %tbody
+    - @projects.each do |project|
+      %tr
+        %td.col-md-4
+          = link_to project.name, project_path(project)
