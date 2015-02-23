@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/faq' => 'common_questions#index'
   resources :tasks
   resources :users
+  resources :projects
 
 
 
