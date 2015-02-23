@@ -9,11 +9,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    user.save
-
-    redirect_to users_path(user)
-    flash[:success] = "User was successfully created"
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to users_path(@user)
+      flash[:success] = "User was successfully created"
+    else
+      render :new
+    end
   end
 
   def show
@@ -25,10 +27,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    @user = User.find(params[:id])
 
-    if user.update(user_params)
-      redirect_to user_path(user)
+    if @user.update(user_params)
+      redirect_to user_path(@user)
       flash[:success] = 'User was successfully updated.'
     else
       render :edit
