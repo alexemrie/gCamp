@@ -1,17 +1,5 @@
 = form_for @user, html: {class: "form-horizontal"}  do |f|
-  .form-group
-    - if @user.errors.any?
-      .col-md-6.col-md-offset-2
-        .alert.alert-danger
-          %h3
-            = pluralize(@user.errors.count, "error")
-            prohibited this form from being saved:
-
-          %ul
-            - @user.errors.full_messages.each do |message|
-              %li
-                = message
-
+  = render partial: "shared/errors", locals: {object: @user}
   .form-group
     .col-md-2{:align => "right"}
       = f.label :first_name, class: "control-label"
