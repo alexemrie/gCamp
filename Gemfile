@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'launchy'
+end
 
 gem 'haml'
-
 gem 'haml-rails'
-
 
 gem 'rails_12factor', '~> 0.0.3', group: :production
 gem 'bootstrap-sass', '~> 3.3.3'
