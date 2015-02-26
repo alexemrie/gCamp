@@ -39,7 +39,7 @@ class TasksController < ApplicationController
 
     if @task.update(task_params)
       redirect_to task_path(@task)
-      flash[:success] = 'Task was successfully updated.'
+      flash[:success] = 'Task was successfully updated'
     else
       render :edit
     end

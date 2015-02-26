@@ -7,17 +7,14 @@ describe User do
   end
 
   it "requires a first_name" do
-    @user.save
     expect(@user.first_name).to eql("Alex")
   end
 
   it "requires a last_name" do
-    @user.save
     expect(@user.last_name).to eql("Emrie")
   end
 
   it "requires an email" do
-    @user.save
     expect(@user.email).to eql("emrieaj@gmail.com")
   end
 
