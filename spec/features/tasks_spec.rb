@@ -48,6 +48,28 @@ describe "managing tasks" do
       expect(page).to have_content "Description can't be blank"
     end
 
+    it "Cancels creating a new task" do
+      visit new_task_path
+
+      fill_in "Description", with: "Something I do not want to do"
+
+      click_on "cancel"
+
+      expect(page).to_not have_content "Something I do not want to do"
+    end
+
+    it "Cancels updating a task" do
+      task = Task.create(description: "Do stuff")
+      visit edit_task_path(task)
+
+      fill_in "Description", with: "Do many things"
+
+      click_on "cancel"
+
+      expect(page).to have_content "Do stuff"
+      expect(page).to_not have_content "Do many things"
+    end
+
     it "Successfully updates a task" do
       Task.create(description: "Do Homework", due_date: "12/05/2015")
 
@@ -64,6 +86,18 @@ describe "managing tasks" do
       expect(page).to have_content "Do Algebra"
       expect(page).to have_content "07/12/2015"
       expect(page).to have_content "Task was successfully updated"
+    end
+
+    it "Successfully marks a task as complete" do
+      task = Task.create(description: "Do Homework", due_date: "12/05/2015", complete: false)
+
+      visit task_path(task)
+
+      click_on "Edit"
+
+      check "Complete"
+
+      click_on "Update Task"
     end
 
     it "Successfully destroys a task" do
