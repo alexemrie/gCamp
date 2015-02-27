@@ -24,7 +24,7 @@ describe "managing tasks" do
       expect(page).to have_content "Description"
       expect(page).to have_content "Due date"
       expect(page).to have_button "Create Task"
-      expect(page).to have_link "cancel"
+      expect(page).to have_link "Cancel"
 
       fill_in "Description", :with => "Wash Dishes"
       fill_in "Due date", :with => "12/05/2015"
@@ -53,7 +53,7 @@ describe "managing tasks" do
 
       fill_in "Description", with: "Something I do not want to do"
 
-      click_on "cancel"
+      click_on "Cancel"
 
       expect(page).to_not have_content "Something I do not want to do"
     end
@@ -64,7 +64,7 @@ describe "managing tasks" do
 
       fill_in "Description", with: "Do many things"
 
-      click_on "cancel"
+      click_on "Cancel"
 
       expect(page).to have_content "Do stuff"
       expect(page).to_not have_content "Do many things"
