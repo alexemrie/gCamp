@@ -25,15 +25,15 @@ describe 'managing users' do
       expect(page).to have_content "Email"
       expect(page).to have_link "Cancel"
 
-      fill_in "First name", :with => "Alex"
-      fill_in "Last name", :with => "Emrie"
-      fill_in "Email", :with => "emrieaj@gmail.com"
+      fill_in "First name", :with => "Bill"
+      fill_in "Last name", :with => "Smith"
+      fill_in "Email", :with => "billsmith@example.com"
 
       click_on "Create User"
 
-      expect(page).to have_content "Alex"
-      expect(page).to have_content "Emrie"
-      expect(page).to have_content "emrieaj@gmail.com"
+      expect(page).to have_content "Bill"
+      expect(page).to have_content "Smith"
+      expect(page).to have_content "billsmith@example.com"
 
     end
 
@@ -52,13 +52,13 @@ describe 'managing users' do
     end
 
     it "Errors when create a user with same email as existing user" do
-      User.create(first_name: "Alex", last_name: "Emrie", email: "emrieaj@gmail.com")
+      User.create(first_name: "Bill", last_name: "Smith", email: "billsmith@example.com")
 
       visit new_user_path
 
       fill_in "First name", :with => "Kevin"
       fill_in "Last name", :with => "Spacey"
-      fill_in "Email", :with => "emrieaj@gmail.com"
+      fill_in "Email", :with => "billsmith@example.com"
 
       click_on "Create User"
 
@@ -73,17 +73,17 @@ describe 'managing users' do
 
       fill_in "First name", :with => "Kevin"
       fill_in "Last name", :with => "Spacey"
-      fill_in "Email", :with => "emrieaj@gmail.com"
+      fill_in "Email", :with => "billsmith@example.com"
 
       click_on "Cancel"
 
       expect(page).to_not have_content "Kevin"
       expect(page).to_not have_content "Spacey"
-      expect(page).to_not have_content "emrieaj@gmail.com"
+      expect(page).to_not have_content "billsmith@example.com"
     end
 
     it "Cancels updating a user" do
-      user = User.create(first_name: "Grant", last_name: "Emrie", email: "icesoccer@gmail.com")
+      user = User.create(first_name: "Grant", last_name: "Smith", email: "icesoccer@gmail.com")
 
       visit edit_user_path(user)
 
@@ -96,7 +96,7 @@ describe 'managing users' do
 
 
     it "Successfully updates a user" do
-      user = User.create(first_name: "Grant", last_name: "Emrie", email: "icesoccer@gmail.com")
+      user = User.create(first_name: "Grant", last_name: "Smith", email: "icesoccer@gmail.com")
 
       visit edit_user_path(user)
 
@@ -108,18 +108,18 @@ describe 'managing users' do
     end
 
     it "Successfully destroys a user" do
-      user = User.create(first_name: "Grant", last_name: "Emrie", email: "icesoccer@gmail.com")
+      user = User.create(first_name: "Grant", last_name: "Smith", email: "icesoccer@gmail.com")
       visit edit_user_path(user)
       click_on "Delete User"
       expect(page).to_not have_content "Grant"
-      expect(page).to_not have_content "Emrie"
+      expect(page).to_not have_content "Smith"
       expect(page).to_not have_content "icesoccer@gmail.com"
     end
 
     it "Clicks on user name from user index page" do
-      User.create(first_name: "Grant", last_name: "Emrie", email: "icesoccer@gmail.com")
+      User.create(first_name: "Grant", last_name: "Smith", email: "icesoccer@gmail.com")
       visit users_path
-      click_on "Grant Emrie"
+      click_on "Grant Smith"
     end
   end
 end
