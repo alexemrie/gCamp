@@ -11,7 +11,12 @@
       .container
         .navbar-header
           =link_to "gCamp", root_path, class: "navbar-brand"
-        =link_to "Sign Up", signup_path, class: "navbar-brand pull-right"
+        -if current_user
+          =link_to "Sign Out", signout_path, class: "navbar-brand pull-right"
+        -else
+          =link_to "Sign Up", signup_path, class: "navbar-brand pull-right"
+
+
 
     .container
       -flash.each do |name, msg|
