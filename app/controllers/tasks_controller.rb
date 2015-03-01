@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
 
+  before_action :ensure_current_user
+
   def index
     @tasks = Task.all
   end
@@ -30,7 +32,7 @@ class TasksController < ApplicationController
 
   def destroy
     Task.destroy(params[:id])
-
+    flash[:success] = 'Task was successfully deleted'
     redirect_to tasks_path
   end
 

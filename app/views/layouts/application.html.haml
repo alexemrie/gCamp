@@ -12,17 +12,21 @@
         .navbar-header
           =link_to "gCamp", root_path, class: "navbar-brand"
         -if current_user
-          =link_to "Sign Out", signout_path, class: "navbar-brand pull-right"
-          = link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user) ,class: "navbar-brand pull-right"
+          =link_to "Sign Out", signout_path, class: "navbar-brand navbar-right"
+          = link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user) ,class: "navbar-brand navbar-right"
         -else
-          =link_to "Sign In", signin_path, class: "navbar-brand pull-right"
-          =link_to "Sign Up", signup_path, class: "navbar-brand pull-right"
+          =link_to "Sign In", signin_path, class: "navbar-brand navbar-right"
+          =link_to "Sign Up", signup_path, class: "navbar-brand navbar-right"
 
 
 
     .container
-      -flash.each do |name, msg|
-        =content_tag :div, msg, class: "alert alert-success"
+      -if flash[:success]
+        -flash.each do |name, msg|
+          =content_tag :div, msg, class: "alert alert-success"
+      -if flash[:error]
+        -flash.each do |name, msg|
+          =content_tag :div, msg, class: "alert alert-danger"
       =yield
 
     %footer
@@ -32,13 +36,14 @@
           |
           = link_to "Terms", terms_path
           |
-          = link_to "Tasks", tasks_path
-          |
           = link_to "FAQ", faq_path
-          |
-          = link_to "Users", users_path
-          |
-          = link_to "Projects", projects_path
+          - if current_user
+            |
+            = link_to "Tasks", tasks_path
+            |
+            = link_to "Users", users_path
+            |
+            = link_to "Projects", projects_path
 
 
           = link_to image_tag("Galvanize.png", class:"img-responsive small"), "https://students.gschool.it/students/268"
