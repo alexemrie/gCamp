@@ -2,13 +2,13 @@
   = render partial: "shared/errors", locals: {object: @user}
   .form-group
     .col-md-2{:align => "right"}
-      = f.label :first_name, class: "control-label"
+      = f.label :first_name, class: "control-label text-capitalize"
     .col-md-5
       = f.text_field :first_name, class: "form-control"
 
   .form-group
     .col-md-2{:align => "right"}
-      = f.label :last_name, class: "form-label"
+      = f.label :last_name, class: "form-label text-capitalize"
     .col-md-5
       = f.text_field :last_name, class: "form-control"
 
@@ -17,6 +17,18 @@
       = f.label :email, class: "form-label"
     .col-md-5
       = f.email_field :email, class: "form-control"
+
+  .form-group
+    .col-md-2{:align => "right"}
+      = f.label :password, class: "form-label"
+    .col-md-5
+      = f.password_field :password, class: "form-control"
+
+  .form-group
+    .col-md-2{:align => "right"}
+      = f.label :password_confirmation, class: "form-label text-capitalize"
+    .col-md-5
+      = f.password_field :password_confirmation, class: "form-control"
 
   .form-group
     .col-md-offset-2.col-md-10
