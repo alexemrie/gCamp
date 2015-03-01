@@ -5,11 +5,17 @@
   = form_for @user, url: signup_path, class: "form-horizontal" do |f|
     .col-md-12
       .form-group
-        = f.label :first_name, class: "control-label"
+        - if @user.errors.any?
+          - @user.errors.full_messages.each do |message|
+            .text-danger
+              = message
+
+      .form-group
+        = f.label :first_name, class: "control-label text-capitalize"
         = f.text_field :first_name, class: "form-control"
 
       .form-group
-        = f.label :last_name, class: "control-label"
+        = f.label :last_name, class: "control-label text-capitalize"
         = f.text_field :last_name, class: "form-control"
 
       .form-group
@@ -21,7 +27,7 @@
         = f.password_field :password, class: "form-control"
 
       .form-group
-        = f.label :password_confirmation, class: "control-label"
+        = f.label :password_confirmation, class: "control-label text-capitalize"
         = f.password_field :password_confirmation, class: "form-control"
 
       .form-group
