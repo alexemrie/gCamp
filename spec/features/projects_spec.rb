@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-describe "managing projects" do
-  describe "user can add, edit, and destroy projects with valid data" do
+feature "managing projects" do
+  feature "user can add, edit, and destroy projects with valid data" do
+
     before :each do
-      Task.destroy_all
+      login
+      Project.destroy_all
     end
 
-    it "Visits the project page" do
+    scenario "Visits the project page" do
       visit projects_path
 
       expect(page).to have_content "Projects"
@@ -14,22 +16,22 @@ describe "managing projects" do
       expect(page).to have_link "New Project"
     end
 
-    it "Successfully creates a new project" do
+    scenario "Successfully creates a new project" do
       visit projects_path
 
       click_on "New Project"
 
-      fill_in "Name", :with => "Make stuff"
+      fill_in "Name", :with => "Do Awesome Things"
 
       click_on "Create Project"
 
-      expect(page).to have_content "Make stuff"
+      expect(page).to have_content("Do Awesome Things")
 
-      click_on "Make stuff"
+      click_on "Do Awesome Things"
 
     end
 
-    it "Errors when creates a project without a name" do
+    scenario "Errors when creates a project without a name" do
       visit new_project_path
 
       click_on "Create Project"
@@ -40,31 +42,30 @@ describe "managing projects" do
     end
 
 
-    it "Cancels creating a project" do
+    scenario "Cancels creating a project" do
       visit new_project_path
-      fill_in "Name", with: "Something I do not want to do"
+      fill_in "Name", :with => "Not Gonna Happen"
       click_on "Cancel"
-      expect(page).to_not have_content "Something I do not want to do"
+      expect(page).to_not have_content("Not Gonna Happen")
     end
 
-    it "Cancels updating a project" do
-      project = Project.create(name: "Do stuff")
-      visit edit_project_path(project)
-
+    scenario "Cancels updating a project" do
+      @project = create_project
+      visit edit_project_path(@project)
       fill_in "Name", with: "Do many things"
 
       click_on "Cancel"
 
-      expect(page).to have_content "Do stuff"
+      expect(page).to have_content(@project.name)
       expect(page).to_not have_content "Do many things"
     end
 
-    it "Successfully updates a project" do
-      Project.create(name: "Do stuff")
+    scenario "Successfully updates a project" do
+      @project = create_project
 
       visit projects_path
 
-      click_on "Do stuff"
+      click_on @project.name
       click_on "Edit"
 
       fill_in "Name", with: "Do Algebra"
@@ -75,13 +76,12 @@ describe "managing projects" do
     end
 
     it "Successfully destroys a project" do
-      Project.create(name: "Do programming")
-      visit projects_path
-
-      click_on "Do programming"
+      @project = create_project
+      visit project_path(@project)
+      
       click_on "Delete"
 
-      expect(page).to_not have_content "Do programming"
+      expect(page).to_not have_content(@project.name)
     end
   end
 end

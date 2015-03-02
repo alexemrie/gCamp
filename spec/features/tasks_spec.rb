@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-describe "managing tasks" do
-  describe "user can add, edit, and destroy tasks with valid data" do
+feature "managing tasks" do
+  feature "user can add, edit, and destroy tasks with valid data" do
     before :each do
+      login
       Task.destroy_all
     end
 
-    it "Visits the task page" do
+    scenario "Visits the task page" do
       visit tasks_path
 
       expect(page).to have_content "Tasks"
@@ -15,7 +16,7 @@ describe "managing tasks" do
       expect(page).to have_link "New Task"
     end
 
-    it "Successfully creates a new task" do
+    scenario "Successfully creates a new task" do
       visit tasks_path
       click_on "New Task"
 
@@ -36,9 +37,8 @@ describe "managing tasks" do
       expect(page).to have_content "05/12/2015"
     end
 
-    it "Errors when create task without a description" do
-      visit tasks_path
-      click_on "New Task"
+    scenario "Errors when create task without a description" do
+      visit new_task_path
 
       fill_in "Due date", :with => "12/05/2015"
 
@@ -48,7 +48,7 @@ describe "managing tasks" do
       expect(page).to have_content "Description can't be blank"
     end
 
-    it "Cancels creating a new task" do
+    scenario "Cancels creating a new task" do
       visit new_task_path
 
       fill_in "Description", with: "Something I do not want to do"
@@ -58,25 +58,25 @@ describe "managing tasks" do
       expect(page).to_not have_content "Something I do not want to do"
     end
 
-    it "Cancels updating a task" do
-      task = Task.create(description: "Do stuff")
-      visit edit_task_path(task)
+    scenario "Cancels updating a task" do
+      @task = create_task
+
+      visit tasks_path
+      click_on @task.description
+      click_on "Edit"
 
       fill_in "Description", with: "Do many things"
 
       click_on "Cancel"
 
-      expect(page).to have_content "Do stuff"
+      expect(page).to have_content(@task.description)
+      expect(page).to have_content(@task.due_date)
       expect(page).to_not have_content "Do many things"
     end
 
-    it "Successfully updates a task" do
-      Task.create(description: "Do Homework", due_date: "12/05/2015")
-
-      visit tasks_path
-
-      click_on "Do Homework"
-      click_on "Edit"
+    scenario "Successfully updates a task" do
+      @task = create_task
+      visit edit_task_path(@task)
 
       fill_in "Description", with: "Do Algebra"
       fill_in "Due date", with: "12/07/2015"
@@ -88,23 +88,20 @@ describe "managing tasks" do
       expect(page).to have_content "Task was successfully updated"
     end
 
-    it "Successfully marks a task as complete" do
-      task = Task.create(description: "Do Homework", due_date: "12/05/2015", complete: false)
-
-      visit task_path(task)
-
-      click_on "Edit"
-
+    scenario "Successfully marks a task as complete" do
+      @task = create_task
+      visit edit_task_path(@task)
       check "Complete"
-
       click_on "Update Task"
+
+      expect(page).to have_content "Task was successfully updated"
     end
 
-    it "Successfully destroys a task" do
-      Task.create(description: "Do Homework", due_date: "12/05/2015")
+    scenario "Successfully destroys a task" do
+      @task = create_task
       visit tasks_path
       click_on "Delete"
-      expect(page).to_not have_content "Do Homework"
+      expect(page).to_not have_content(@task.description)
     end
   end
 end
