@@ -7,17 +7,14 @@ feature "managing tasks" do
       Task.destroy_all
     end
 
-    scenario "Visits the task page" do
+    scenario "user can create, read, update, and destroy a task" do
       visit tasks_path
 
       expect(page).to have_content "Tasks"
       expect(page).to have_content "Description"
       expect(page).to have_content "Due Date"
       expect(page).to have_link "New Task"
-    end
 
-    scenario "Successfully creates a new task" do
-      visit tasks_path
       click_on "New Task"
 
       expect(page).to have_link "Tasks"
@@ -35,6 +32,26 @@ feature "managing tasks" do
       expect(page).to have_content "Task was successfully created"
       expect(page).to have_content "Wash Dishes"
       expect(page).to have_content "05/12/2015"
+
+      click_on "Edit"
+
+      fill_in "Description", with: "Do Algebra"
+      fill_in "Due date", with: "12/07/2015"
+      check "Complete"
+
+      click_on "Update Task"
+
+      expect(page).to have_content "Do Algebra"
+      expect(page).to have_content "07/12/2015"
+      expect(page).to have_content "Task was successfully updated"
+
+      visit tasks_path
+
+      click_on "Delete"
+
+      expect(current_path).to eql "/tasks"
+      expect(page).to_not have_content "Do Algebra"
+      expect(page).to have_content "Task was successfully deleted"
     end
 
     scenario "Errors when create task without a description" do
@@ -72,36 +89,6 @@ feature "managing tasks" do
       expect(page).to have_content(@task.description)
       expect(page).to have_content(@task.due_date)
       expect(page).to_not have_content "Do many things"
-    end
-
-    scenario "Successfully updates a task" do
-      @task = create_task
-      visit edit_task_path(@task)
-
-      fill_in "Description", with: "Do Algebra"
-      fill_in "Due date", with: "12/07/2015"
-
-      click_on "Update Task"
-
-      expect(page).to have_content "Do Algebra"
-      expect(page).to have_content "07/12/2015"
-      expect(page).to have_content "Task was successfully updated"
-    end
-
-    scenario "Successfully marks a task as complete" do
-      @task = create_task
-      visit edit_task_path(@task)
-      check "Complete"
-      click_on "Update Task"
-
-      expect(page).to have_content "Task was successfully updated"
-    end
-
-    scenario "Successfully destroys a task" do
-      @task = create_task
-      visit tasks_path
-      click_on "Delete"
-      expect(page).to_not have_content(@task.description)
     end
   end
 end

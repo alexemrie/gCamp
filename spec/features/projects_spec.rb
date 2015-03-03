@@ -24,7 +24,8 @@ feature "managing projects" do
 
       click_on "Create Project"
 
-      expect(page).to have_content("Do Awesome Things")
+      expect(page).to have_content "Do Awesome Things"
+      expect(page).to have_content "Project was successfully created"
 
       click_on "Do Awesome Things"
 
