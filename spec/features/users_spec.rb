@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 feature 'managing users' do
-  feature "user can add, edit, and destroy tasks with valid data" do
+  feature "user can add, edit, and destroy users with valid data" do
     before :each do
       User.destroy_all
       @user = create_user
       login(@user)
     end
 
-    scenario "Visits the users page" do
+    scenario "user can create, read, update, and destroy a user" do
       visit users_path
 
       expect(page).to have_content "Users"
@@ -16,9 +16,6 @@ feature 'managing users' do
       expect(page).to have_content "Email"
       expect(page).to have_link "New User"
 
-    end
-
-    scenario "Successfully creates a new user" do
       visit new_user_path
 
       expect(page).to have_content "New User"
@@ -37,10 +34,33 @@ feature 'managing users' do
 
       click_on "Create User"
 
+      expect(page).to have_content "User was successfully created"
       expect(page).to have_content "Bill"
       expect(page).to have_content "Smith"
       expect(page).to have_content "billsmith@example.com"
 
+      click_on "Bill Smith"
+
+      click_on "Edit"
+
+      fill_in "First name", :with => "Bill"
+      fill_in "Last name", :with => "Smith"
+      fill_in "Email", :with => "niceguy11@gmail.com"
+      fill_in "Password", :with => "password123"
+      fill_in "Password confirmation", :with => "password123"
+
+      click_on "Update User"
+
+      expect(page).to have_content "niceguy11@gmail.com"
+
+      click_on "Edit"
+
+      click_on "Delete"
+
+      expect(current_path).to eql "/users"
+      expect(page).to_not have_content "Bill"
+      expect(page).to_not have_content "Smith"
+      expect(page).to_not have_content "niceguy11@gmail.com"
     end
 
     scenario "Errors when create a user without a First name, Last name, Email" do
@@ -49,6 +69,7 @@ feature 'managing users' do
 
       click_on "Create User"
 
+      expect(current_path).to eql '/users'
       expect(page).to have_content "prohibited this form from being saved"
       expect(page).to have_content "First name can't be blank"
       expect(page).to have_content "Last name can't be blank"
@@ -99,35 +120,6 @@ feature 'managing users' do
       click_on "Cancel"
 
       expect(page).to_not have_content "niceguy11@gmail.com"
-    end
-
-    scenario "Successfully updates a user" do
-      visit edit_user_path(@user)
-
-      fill_in "Email", with: "niceguy11@gmail.com"
-      fill_in "Password", with: @user.password
-      fill_in "Password confirmation", with: @user.password
-
-      click_on "Update User"
-
-      expect(page).to have_content "niceguy11@gmail.com"
-    end
-
-    scenario "Successfully destroys a user" do
-      different_user = create_user(first_name: "Pasta", last_name: "Guy", email: "pastaguy@gmail.com")
-      visit edit_user_path(different_user)
-
-      click_on "Delete User"
-
-      expect(page).to_not have_content(different_user.first_name)
-      expect(page).to_not have_content(different_user.last_name)
-      expect(page).to_not have_content(different_user.email)
-    end
-
-    scenario "Clicks on user name from user index page" do
-      different_user = create_user(first_name: "Pasta", last_name: "Guy", email: "pastaguy@gmail.com")
-      visit users_path
-      click_on "Pasta Guy"
     end
   end
 end
