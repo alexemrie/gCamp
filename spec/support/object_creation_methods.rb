@@ -1,5 +1,5 @@
 def create_user(options={})
-  @current_user = User.create!({
+  User.create!({
     first_name: "Crazy",
     last_name: "John",
     email: "crazyjohn@example.com",
