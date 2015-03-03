@@ -7,20 +7,7 @@
     = csrf_meta_tags
 
   %body
-    %nav.navbar.navbar-inverse.navbar-fixed-top
-      .container
-        .navbar-header
-          =link_to "gCamp", root_path, class: "navbar-brand"
-        %ul
-          -if current_user
-            = link_to "Sign Out", signout_path, class: "navbar-brand navbar-right"
-            = link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user) ,class: "navbar-brand navbar-right"
-          -else
-            =link_to "Sign In", signin_path, class: "navbar-brand navbar-right"
-            =link_to "Sign Up", signup_path, class: "navbar-brand navbar-right"
-
-
-
+    = render 'layouts/nav'
     .container
       -if flash[:success]
         -flash.each do |name, msg|
@@ -29,25 +16,4 @@
         -flash.each do |name, msg|
           =content_tag :div, msg, class: "alert alert-danger"
       =yield
-
-    %footer
-      .container
-        %hr
-          = link_to "About", about_path
-          |
-          = link_to "Terms", terms_path
-          |
-          = link_to "FAQ", faq_path
-          - if current_user
-            |
-            = link_to "Tasks", tasks_path
-            |
-            = link_to "Users", users_path
-            |
-            = link_to "Projects", projects_path
-
-
-          = link_to image_tag("Galvanize.png", class:"img-responsive small"), "https://students.gschool.it/students/268"
-          = link_to image_tag("Twitter.png", class:"img-responsive small"), "https://twitter.com/AlexEmrie"
-          = link_to image_tag("GitHub.png", class:"img-responsive small"), "https://github.com/alexemrie"
-          = link_to image_tag("Linked_In.jpg", class:"img-responsive small"), "https://www.linkedin.com/in/alexemrie"
+    = render 'layouts/footer'
