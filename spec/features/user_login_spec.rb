@@ -118,7 +118,7 @@ feature "Logging in users" do
         click_on "Sign In"
       end
 
-      expect(page).to have_content("Email / Password combination is invalid")
+      expect(page).to have_content("Email / Password combination is invalid") 
     end
   end
 end
