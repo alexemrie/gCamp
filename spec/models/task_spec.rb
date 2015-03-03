@@ -14,7 +14,7 @@ describe Task do
     expect(new_task).to be_valid
   end
 
-  it "Creates a project without a description" do
+  it "requires a description" do
     valid_attributes[:description] = nil
     new_task = Task.new(valid_attributes)
     new_task.valid?
