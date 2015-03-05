@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   get '/terms' => 'terms#index'
   get '/about' => 'about#index'
   get '/faq' => 'common_questions#index'
-  resources :tasks
   resources :users
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
 
 
