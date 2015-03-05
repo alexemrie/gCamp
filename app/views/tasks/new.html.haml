@@ -3,7 +3,9 @@
     Create a New Task
 
 %ol.breadcrumb
-  %li= link_to 'Tasks', tasks_path(@tasks)
+  %li= link_to 'Projects', projects_path
+  %li= link_to @project.name, project_path(@project)
+  %li= link_to 'Tasks', project_tasks_path(@project)
   %li.active New Task
-  
+
 = render partial: 'form', locals: {name_of_button: "Create Task"}

@@ -1,4 +1,4 @@
-= form_for @task, html: {class: "form-horizontal"} do |f|
+= form_for [@project, @task], html: {class: "form-horizontal"} do |f|
   = render partial: "shared/errors", locals: {object: @task}
   .form-group
     .col-md-2
@@ -21,4 +21,4 @@
   .form-group
     .col-md-offset-2.col-md-10
       = f.submit name_of_button, class: "btn btn-primary"
-      = link_to 'Cancel', tasks_path(), class: "btn btn-default"
+      = link_to 'Cancel', project_tasks_path(), class: "btn btn-default"
