@@ -4,4 +4,9 @@
     .pull-right
       = link_to "Edit", edit_project_path(@project), class: "btn btn-info"
       = link_to "Delete", project_path(@project), class: "btn btn-danger", method: :delete, data: {confirm: "Delete this project?"}
-= link_to 'View Tasks', project_tasks_path(@project)
+
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li.active= @project.name
+
+= link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project, @task)
