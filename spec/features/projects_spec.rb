@@ -16,19 +16,19 @@ feature "managing projects" do
       expect(page).to have_content "Name"
       expect(page).to have_link "New Project"
 
+      #Create a new project
       click_on "New Project"
 
       expect(current_path).to eql "/projects/new"
+      
       within "ol.breadcrumb" do
         expect(page).to have_content "Projects"
         expect(page).to have_content "New Project"
       end
 
-
       fill_in "Name", :with => "Do Awesome Things"
 
       click_on "Create Project"
-
       expect(page).to have_content "Do Awesome Things"
       expect(page).to have_content "Project was successfully created"
 
@@ -40,6 +40,7 @@ feature "managing projects" do
         expect(page).to have_content "Do Awesome Things"
       end
 
+      #Edit a project
       click_on "Edit"
 
       within "ol.breadcrumb" do
@@ -55,8 +56,8 @@ feature "managing projects" do
       expect(page).to have_content "Do Algebra"
       expect(page).to have_content "Project was successfully updated"
 
+      #Destroy a project
       click_on "Delete"
-
       expect(page).to_not have_content "Do Algebra"
       expect(current_path).to eql "/projects"
     end

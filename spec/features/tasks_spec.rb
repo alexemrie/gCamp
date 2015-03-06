@@ -23,6 +23,7 @@ feature "managing tasks" do
         expect(page).to have_content "Tasks"
       end
 
+      # Creating a new task
       click_on "New Task"
 
       expect(page).to have_content "New Task"
@@ -42,10 +43,12 @@ feature "managing tasks" do
 
       click_on "Create Task"
 
+      #Check flash messages for succesfully created task
       expect(page).to have_content "Task was successfully created"
       expect(page).to have_content "Wash Dishes"
       expect(page).to have_content "05/12/2015"
 
+      #Update an existing task
       click_on "Edit"
       within "ol.breadcrumb" do
         expect(page).to have_link "Projects"
@@ -67,6 +70,7 @@ feature "managing tasks" do
 
       visit project_tasks_path(project)
 
+      #Destroy an existing task
       click_on "Delete"
 
       expect(current_path).to eql (project_tasks_path(project))

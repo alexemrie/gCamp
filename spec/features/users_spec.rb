@@ -32,6 +32,7 @@ feature 'managing users' do
       fill_in "Password", :with => "password123"
       fill_in "Password confirmation", :with => "password123"
 
+      #Create a new user
       click_on "Create User"
 
       expect(page).to have_content "User was successfully created"
@@ -41,6 +42,7 @@ feature 'managing users' do
 
       click_on "Bill Smith"
 
+      #Update an existing user
       click_on "Edit"
 
       fill_in "First name", :with => "Bill"
@@ -55,8 +57,8 @@ feature 'managing users' do
 
       click_on "Edit"
 
+      #Delete a user
       click_on "Delete"
-
       expect(current_path).to eql "/users"
       expect(page).to_not have_content "Bill"
       expect(page).to_not have_content "Smith"
