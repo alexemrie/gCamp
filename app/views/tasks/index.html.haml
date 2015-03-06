@@ -1,6 +1,6 @@
 %h1
   .page-header
-    Tasks
+    = "Tasks for #{@project.name}"
     = link_to 'New Task', new_project_task_path(@project), class: "btn btn-info pull-right"
 
 %ol.breadcrumb
