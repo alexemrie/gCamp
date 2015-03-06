@@ -12,7 +12,6 @@ feature "Logging in users" do
         expect(page).to have_content("About")
         expect(page).to have_content("Terms")
         expect(page).to have_content("FAQ")
-        expect(page).to_not have_content("Tasks")
         expect(page).to_not have_content("Users")
         expect(page).to_not have_content("Projects")
       end
@@ -36,7 +35,6 @@ feature "Logging in users" do
         expect(page).to have_content("About")
         expect(page).to have_content("Terms")
         expect(page).to have_content("FAQ")
-        expect(page).to have_content("Tasks")
         expect(page).to have_content("Users")
         expect(page).to have_content("Projects")
       end
@@ -118,7 +116,7 @@ feature "Logging in users" do
         click_on "Sign In"
       end
 
-      expect(page).to have_content("Email / Password combination is invalid") 
+      expect(page).to have_content("Email / Password combination is invalid")
     end
   end
 end

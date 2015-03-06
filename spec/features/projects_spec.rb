@@ -19,6 +19,11 @@ feature "managing projects" do
       click_on "New Project"
 
       expect(current_path).to eql "/projects/new"
+      within "ol.breadcrumb" do
+        expect(page).to have_content "Projects"
+        expect(page).to have_content "New Project"
+      end
+
 
       fill_in "Name", :with => "Do Awesome Things"
 
@@ -27,9 +32,21 @@ feature "managing projects" do
       expect(page).to have_content "Do Awesome Things"
       expect(page).to have_content "Project was successfully created"
 
+
       click_on "Do Awesome Things"
 
+      within "ol.breadcrumb" do
+        expect(page).to have_content "Projects"
+        expect(page).to have_content "Do Awesome Things"
+      end
+
       click_on "Edit"
+
+      within "ol.breadcrumb" do
+        expect(page).to have_content "Projects"
+        expect(page).to have_content "Do Awesome Things"
+        expect(page).to have_content "Edit"
+      end
 
       fill_in "Name", with: "Do Algebra"
 
