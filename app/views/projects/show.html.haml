@@ -10,3 +10,5 @@
   %li.active= @project.name
 
 = link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project, @task)
+%br
+= link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project, @membership)
