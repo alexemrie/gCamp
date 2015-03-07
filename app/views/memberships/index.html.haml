@@ -39,12 +39,3 @@
                 %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
                 %td= f.submit "Update", class: "btn btn-primary"
                 %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
-
-
-
--# %table
--#   %tbody
--#     - @project.memberships.each do |membership|
--#       %tr
--#         - if @membership.id
--#           -# %td= link_to "#{first_name} #{last_name}",
