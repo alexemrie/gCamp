@@ -37,7 +37,7 @@
           - if membership.id
             = form_for [@project, membership], html: {class: "form-inline"}  do |f|
               %tr
-                %td= link_to "#{membership.user.first_name} #{membership.user.last_name}", user_path(membership.user)
+                %td= link_to "#{membership.user.full_name}", user_path(membership.user)
                 %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
                 %td= f.submit "Update", class: "btn btn-primary"
                 %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
