@@ -12,3 +12,8 @@
 = link_to pluralize(@project.tasks.count, "Task"), project_tasks_path(@project, @task)
 %br
 = link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project, @membership)
+
+.well
+  %h4 Delete
+  %p= "Deleting this project will also delete #{pluralize(@project.memberships.count, 'membership')}, #{pluralize(@project.tasks.count, 'task')} and associated comments"
+  %p=link_to "Delete", project_path(@project), method: :delete, class: "btn btn-danger",data: {confirm: "Are you sure?"}
