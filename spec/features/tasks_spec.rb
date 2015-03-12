@@ -71,7 +71,8 @@ feature "managing tasks" do
       visit project_tasks_path(project)
 
       #Destroy an existing task
-      click_on "Delete"
+
+      first('.glyphicon-remove').click
 
       expect(current_path).to eql (project_tasks_path(project))
       expect(page).to_not have_content "Do Algebra"
