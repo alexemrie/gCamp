@@ -20,7 +20,7 @@ feature "managing projects" do
       click_on "New Project"
 
       expect(current_path).to eql "/projects/new"
-      
+
       within "ol.breadcrumb" do
         expect(page).to have_content "Projects"
         expect(page).to have_content "New Project"
