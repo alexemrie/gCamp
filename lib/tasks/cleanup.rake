@@ -45,4 +45,9 @@ namespace :cleanup do
     Comment.where(task_id: nil).destroy_all
   end
 
+  desc "Deletes any memberships with a null project_id or task_id"
+  task remove_orphans: :environment do
+    Membership.where(project_id: nil).destroy_all
+    Membership.where(task_id: nil).destroy_all
+  end
 end
