@@ -1,6 +1,4 @@
-class TasksController < ApplicationController
-
-  before_action :ensure_current_user
+class TasksController < PrivateController
 
   before_action do
     @project = Project.find(params[:project_id])

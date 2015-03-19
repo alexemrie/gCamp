@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < PrivateController
 
   def create
     task = Task.find(params[:task_id])
