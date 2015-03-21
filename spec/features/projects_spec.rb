@@ -35,8 +35,9 @@ feature "managing projects" do
       expect(page).to have_content "Do Awesome Things"
       expect(page).to have_content "Project was successfully created"
 
-
-      click_on "Do Awesome Things"
+      within "table" do
+        click_on "Do Awesome Things"
+      end
 
       within "ol.breadcrumb" do
         expect(page).to have_content "Projects"
@@ -83,15 +84,5 @@ feature "managing projects" do
       expect(page).to_not have_content("Not Gonna Happen")
     end
 
-    scenario "Cancels updating a project" do
-      @project = create_project
-      visit edit_project_path(@project)
-      fill_in "Name", with: "Do many things"
-
-      click_on "Cancel"
-
-      expect(page).to have_content(@project.name)
-      expect(page).to_not have_content "Do many things"
-    end
   end
 end
