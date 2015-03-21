@@ -28,15 +28,14 @@ feature "Logging in users" do
         click_on "Sign Up"
       end
 
-      expect(current_path).to eq '/'
+      expect(current_path).to eq '/projects/new'
       expect(page).to have_content("You have successfully signed up")
 
       within "footer" do
+        expect(page).to have_content("Home")
         expect(page).to have_content("About")
         expect(page).to have_content("Terms")
         expect(page).to have_content("FAQ")
-        expect(page).to have_content("Users")
-        expect(page).to have_content("Projects")
       end
 
       within "nav" do
