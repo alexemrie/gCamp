@@ -11,6 +11,7 @@ class ProjectsController < PrivateController
   def create
     @project = Project.new(project_params)
     if @project.save
+      @membership = @project.memberships.create!(user_id: current_user.id, role: "Owner")
       redirect_to projects_path(@project)
       flash[:success] = "Project was successfully created"
     else

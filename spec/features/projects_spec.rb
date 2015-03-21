@@ -17,7 +17,8 @@ feature "managing projects" do
       expect(page).to have_link "New Project"
 
       #Create a new project
-      within "nav" do
+
+      within '.page-header' do
         click_on "New Project"
       end
 

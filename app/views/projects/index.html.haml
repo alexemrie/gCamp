@@ -10,7 +10,7 @@
       %th{:colspan => "1"}
         Tasks
   %tbody
-    - @projects.each do |project|
+    - current_user.projects.each do |project|
       %tr
         %td.col-md-4
           = link_to project.name, project_path(project)
