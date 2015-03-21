@@ -3,13 +3,20 @@ require 'rails_helper'
 feature "managing tasks" do
   feature "user can add, edit, and destroy tasks with valid data" do
     before :each do
-      login
+      @user = create_user
+      visit signin_path
+      fill_in "Email", with: @user.email
+      fill_in "Password", with: @user.password
+      within "form" do
+        click_on "Sign In"
+      end
+
       Task.destroy_all
     end
 
     scenario "user can create, read, update, and destroy a task" do
-
       project = create_project
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
 
       visit project_tasks_path(project)
 
@@ -81,6 +88,7 @@ feature "managing tasks" do
 
     scenario "Errors when create task without a description" do
       project = create_project
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
 
       visit new_project_task_path(project)
 
@@ -94,6 +102,7 @@ feature "managing tasks" do
 
     scenario "Cancels creating a new task" do
       project = create_project
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
 
       visit new_project_task_path(project)
 

@@ -2,6 +2,11 @@ class TasksController < PrivateController
 
   before_action do
     @project = Project.find(params[:project_id])
+  
+    unless @project.users.pluck(:id).include?(current_user.id)
+      flash[:error] = "You do not have access to that project"
+      redirect_to projects_path
+    end
   end
 
   def index
