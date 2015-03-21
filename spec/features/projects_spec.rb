@@ -17,7 +17,9 @@ feature "managing projects" do
       expect(page).to have_link "New Project"
 
       #Create a new project
-      click_on "New Project"
+      within "nav" do
+        click_on "New Project"
+      end
 
       expect(current_path).to eql "/projects/new"
 
