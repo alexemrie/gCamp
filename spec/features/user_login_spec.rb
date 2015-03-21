@@ -99,7 +99,7 @@ feature "Logging in users" do
         click_on "Sign In"
       end
 
-      expect(current_path).to eql '/'
+      expect(current_path).to eql '/projects'
       expect(page).to have_content 'You have successfully signed in'
     end
 
