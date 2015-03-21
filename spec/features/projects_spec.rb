@@ -35,16 +35,13 @@ feature "managing projects" do
       expect(page).to have_content "Do Awesome Things"
       expect(page).to have_content "Project was successfully created"
 
+      #Edit a project
+      visit projects_path
+
       within "table" do
         click_on "Do Awesome Things"
       end
 
-      within "ol.breadcrumb" do
-        expect(page).to have_content "Projects"
-        expect(page).to have_content "Do Awesome Things"
-      end
-
-      #Edit a project
       click_on "Edit"
 
       within "ol.breadcrumb" do

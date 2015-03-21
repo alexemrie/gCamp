@@ -34,7 +34,7 @@ describe ProjectsController do
         project = Project.last
         expect(project.name).to eq "Build Shed"
         expect(flash[:success]).to eq "Project was successfully created"
-        expect(response).to redirect_to projects_path(project)
+        expect(response).to redirect_to project_tasks_path(project)
       end
     end
 
