@@ -2,18 +2,18 @@ require 'rails_helper'
 
 describe ProjectsController do
   before :each do
-    user = create_user
-    session[:user_id] = user.id
+    @user = create_user
+    session[:user_id] = @user.id
   end
 
   describe "GET #index" do
     it "assigns all projects with a title Build Shed" do
       project = create_project(name: "Build Shed")
-      random = create_project(name: "Random")
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
 
       get :index
 
-      expect(assigns(:projects)).to eq [project, random]
+      expect(assigns(:projects)).to eq [project]
     end
   end
 
@@ -28,11 +28,13 @@ describe ProjectsController do
   describe "POST #create" do
     describe "on success" do
       it "creates a new project when valid parameters are passed" do
+
         expect {
-          post :create, project: {name: "Build Shed"}}.to change { Project.all.count}.by(1)
+          post :create, project: {name: "Build House"}}.to change { Project.all.count}.by(1)
 
         project = Project.last
-        expect(project.name).to eq "Build Shed"
+
+        expect(project.name).to eq "Build House"
         expect(flash[:success]).to eq "Project was successfully created"
         expect(response).to redirect_to project_tasks_path(project)
       end
@@ -52,7 +54,7 @@ describe ProjectsController do
     describe "on success" do
       it "updates a project with valid attributes" do
         project = create_project(name: "Build Shed")
-
+        membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
         expect {
           patch :update, id: project.id, project: {name: "Build Barn"}}.to change {project.reload.name}.from("Build Shed").to("Build Barn")
 
@@ -64,7 +66,7 @@ describe ProjectsController do
     describe "on failure" do
       it "does not update a project with invalid attributes" do
         project = create_project(name: "Build Shed")
-
+        membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
         expect {
           patch :update, id: project.id, project: {name: nil}}.to_not change {project.reload.name}
 
@@ -77,7 +79,7 @@ describe ProjectsController do
   describe "DELETEE #destroy" do
     it "deletes a project" do
       project = create_project
-
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
       expect {
         delete :destroy, id: project.id
       }.to change { Project.all.count }.by(-1)

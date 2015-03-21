@@ -8,11 +8,20 @@ def create_user(options={})
   }.merge(options))
 end
 
-def create_project(options={})
-  Project.create!({
+# def create_project(options={})
+#   Project.create!({
+#     name: "Do Stuff"
+#   }.merge(options))
+# end
+
+def create_project(options = {})
+  defaults = {
     name: "Do Stuff"
-  }.merge(options))
+  }
+  project = Project.create!(defaults.merge(options))
+
 end
+
 
 def create_task(options={})
   Task.create!({
