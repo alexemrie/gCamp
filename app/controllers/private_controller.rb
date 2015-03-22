@@ -11,4 +11,12 @@ class PrivateController < ApplicationController
     end
   end
 
+  def require_ownership
+    @project = Project.find(params[:id])
+
+    unless @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+      flash[:error] = "You do not have access"
+      redirect_to project_path(@project)
+    end
+  end
 end
