@@ -20,13 +20,14 @@
             %li
               = message
 
-.row
-  .col-md-8
-    .well
-      = form_for [@project, @membership], html: {class: "form-inline"}  do |f|
-        = f.collection_select(:user_id, User.all, :id, :full_name,{prompt: "Please select a user..."}, {class: 'form-control'})
-        = f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
-        = f.submit "Add New Member", class: "btn btn-primary"
+- if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+  .row
+    .col-md-8
+      .well
+        = form_for [@project, @membership], html: {class: "form-inline"}  do |f|
+          = f.collection_select(:user_id, User.all, :id, :full_name,{prompt: "Please select a user..."}, {class: 'form-control'})
+          = f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
+          = f.submit "Add New Member", class: "btn btn-primary"
 
 
 .row

@@ -1,4 +1,12 @@
 class MembershipsController < PrivateController
+  before_action only: [:edit, :update, :destroy] do
+    @project = Project.find(params[:project_id])
+
+    unless @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+      flash[:error] = "You do not have access"
+      redirect_to project_path(@project)
+    end
+  end
 
   before_action do
     @project = Project.find(params[:project_id])
