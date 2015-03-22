@@ -38,12 +38,11 @@ feature 'managing users' do
       expect(page).to have_content "User was successfully created"
       expect(page).to have_content "Bill"
       expect(page).to have_content "Smith"
-      expect(page).to have_content "billsmith@example.com"
 
       click_on "Bill Smith"
 
       #Update an existing user
-      click_on "Edit"
+      visit edit_user_path(@user)
 
       fill_in "First name", :with => "Bill"
       fill_in "Last name", :with => "Smith"
@@ -59,7 +58,7 @@ feature 'managing users' do
 
       #Delete a user
       click_on "Delete"
-      expect(current_path).to eql "/users"
+      expect(current_path).to eql "/"
       expect(page).to_not have_content "Bill"
       expect(page).to_not have_content "Smith"
       expect(page).to_not have_content "niceguy11@gmail.com"
