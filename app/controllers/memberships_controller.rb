@@ -47,7 +47,11 @@ class MembershipsController < PrivateController
     membership = Membership.find(params[:id])
     membership.destroy
     flash[:success] = "#{membership.user.full_name} was successfully removed"
-    redirect_to project_memberships_path(membership.project_id)
+    if current_user.id == membership.user_id
+      redirect_to projects_path
+    else
+      redirect_to project_memberships_path(membership.project_id)
+    end
   end
 
   private
