@@ -1,7 +1,10 @@
 class MembershipsController < PrivateController
-  before_action only: [:edit, :update, :destroy] do
-    @project = Project.find(params[:project_id])
 
+  before_action :find_and_set_project
+  before_action :find_and_set_membership, only: [:update, :destroy]
+  before_action :verify_at_least_one_owner, only: [:update, :destroy]
+
+  before_action only: [:edit, :update, :destroy] do
     unless @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
       flash[:error] = "You do not have access"
       redirect_to project_path(@project)
@@ -9,8 +12,6 @@ class MembershipsController < PrivateController
   end
 
   before_action do
-    @project = Project.find(params[:project_id])
-
     unless @project.users.pluck(:id).include?(current_user.id)
       flash[:error] = "You do not have access to that project"
       redirect_to projects_path
@@ -33,10 +34,9 @@ class MembershipsController < PrivateController
   end
 
   def update
-    membership = Membership.find(params[:id])
-    if membership.update(membership_params)
-      flash[:success] = "#{membership.user.full_name} was successfully updated"
-      redirect_to project_memberships_path(membership.project_id)
+    if @membership.update(membership_params)
+      flash[:success] = "#{@membership.user.full_name} was successfully updated"
+      redirect_to project_memberships_path(@membership.project_id)
     else
       @membership = membership
       render :index
@@ -44,8 +44,7 @@ class MembershipsController < PrivateController
   end
 
   def destroy
-    membership = Membership.find(params[:id])
-    membership.destroy
+    @membership.destroy
     flash[:success] = "#{membership.user.full_name} was successfully removed"
     if current_user.id == membership.user_id
       redirect_to projects_path
@@ -61,4 +60,19 @@ class MembershipsController < PrivateController
     params.require(:membership).permit(:role, :user_id, :project_id)
   end
 
+  def find_and_set_project
+    @project = Project.find(params[:project_id])
+  end
+
+  def find_and_set_membership
+    @membership = Membership.find(params[:id])
+  end
+
+  def verify_at_least_one_owner
+    @membership = Membership.find(params[:id])
+    if @membership.role == "Owner" && @project.memberships.where(role: "Owner").count <= 1
+      flash[:error] = "Projects must have at least one owner"
+      redirect_to project_memberships_path(@membership.project_id)
+    end
+  end
 end

@@ -39,9 +39,15 @@
             = form_for [@project, membership], html: {class: "form-inline"}  do |f|
               %tr
                 %td= link_to "#{membership.user.full_name}", user_path(membership.user)
-                %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
-                %td= f.submit "Update", class: "btn btn-primary"
+                - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+                  %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
+                  %td= f.submit "Update", class: "btn btn-primary"
+                - else
+                  %td= membership.role
                 - if current_user.id == membership.user_id
-                  %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
+                  - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] && @project.memberships.where(role: "Owner").count == 1
+                    %td You are the last owner
+                  -else
+                    %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
                 -else
                   %td
