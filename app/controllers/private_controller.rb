@@ -1,7 +1,6 @@
 class PrivateController < ApplicationController
   before_action :ensure_current_user
 
-
   def require_membership
     @project = Project.find(params[:id])
 
@@ -19,4 +18,5 @@ class PrivateController < ApplicationController
       redirect_to project_path(@project)
     end
   end
+  
 end

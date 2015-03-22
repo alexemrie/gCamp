@@ -40,8 +40,9 @@ class UsersController < PrivateController
   def destroy
     User.destroy(params[:id])
 
+    session.clear
     flash[:success] = "User was successfully deleted"
-    redirect_to users_path
+    redirect_to root_path
   end
 
   private
@@ -49,6 +50,5 @@ class UsersController < PrivateController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
-
 
 end

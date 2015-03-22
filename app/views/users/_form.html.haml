@@ -39,4 +39,4 @@
     .col-md-offset-2.col-md-5{:align => "center"}
       - unless @user.new_record?
         .well
-          = link_to "Delete User", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Delete this user?"}
+          = link_to "Delete User", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}

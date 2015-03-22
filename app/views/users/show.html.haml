@@ -1,12 +1,14 @@
 %h1
   .page-header
     = "#{@user.first_name} #{@user.last_name}"
-    = link_to 'Edit', edit_user_path(@user), class: "btn btn-info pull-right"
-    
+    - if @user.id == current_user.id
+      = link_to 'Edit', edit_user_path(@user), class: "btn btn-info pull-right"
+
 %dl.dl-horizontal
   %dt First name
   %dd= @user.first_name
   %dt Last name
   %dd= @user.last_name
-  %dt Email
-  %dd= mail_to @user.email
+  - if @user.id == current_user.id
+    %dt Email
+    %dd= mail_to @user.email
