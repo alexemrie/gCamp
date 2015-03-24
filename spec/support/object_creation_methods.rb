@@ -4,7 +4,8 @@ def create_user(options={})
     last_name: "John",
     email: "crazyjohn#{rand(100000) + 1}@example.com",
     password: "password123",
-    password_confirmation: "password123"
+    password_confirmation: "password123",
+    admin: true
   }.merge(options))
 end
 

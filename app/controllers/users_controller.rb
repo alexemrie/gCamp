@@ -1,4 +1,6 @@
 class UsersController < PrivateController
+  before_action :find_and_set_user, only: [:show, :edit, :update]
+  before_action :current_user_should_not_have_access, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -19,16 +21,12 @@ class UsersController < PrivateController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(user_params)
       redirect_to user_path(@user)
       flash[:success] = 'User was successfully updated'
@@ -51,4 +49,8 @@ class UsersController < PrivateController
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 
+  def find_and_set_user
+    @user = User.find(params[:id])
+  end
+  
 end
