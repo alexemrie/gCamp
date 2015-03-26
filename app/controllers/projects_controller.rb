@@ -1,9 +1,10 @@
 class ProjectsController < PrivateController
-  before_action :require_membership, only: [:show, :edit, :update, :destroy]
-  before_action :require_ownership, only: [:edit, :update, :destroy]
+  before_action :find_and_set_project, only: [:show, :edit, :update]
+  before_action :ensure_project_admin_or_member, only: [:show, :create, :update, :destroy]
+  before_action :ensure_project_admin_or_owner, only: [:edit, :update, :destroy]
 
   def index
-    @projects = current_user.projects.all
+    @projects = Project.all
   end
 
   def new
@@ -22,12 +23,9 @@ class ProjectsController < PrivateController
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
-
     if @project.update(project_params)
       redirect_to project_path(@project)
       flash[:success] = "Project was successfully updated"
@@ -37,37 +35,21 @@ class ProjectsController < PrivateController
   end
 
   def show
-    @project = Project.find(params[:id])
-  end
-
-  def destroy
-    Project.destroy(params[:id])
-
-    redirect_to projects_path
-    flash[:success] = "Project was successfully deleted"
   end
 
   private
+
+  def destroy
+    @project.destroy
+    redirect_to projects_path
+    flash[:success] = "Project was successfully deleted"
+  end
 
   def project_params
     params.require(:project).permit(:name)
   end
 
-  def require_membership
+  def find_and_set_project
     @project = Project.find(params[:id])
-
-    unless @project.users.pluck(:id).include?(current_user.id)
-      flash[:error] = "You do not have access to that project"
-      redirect_to projects_path
-    end
-  end
-  
-  def require_ownership
-    @project = Project.find(params[:id])
-
-    unless @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
-      flash[:error] = "You do not have access"
-      redirect_to project_path(@project)
-    end
   end
 end

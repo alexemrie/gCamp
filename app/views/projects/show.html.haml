@@ -1,7 +1,7 @@
 %h1
   .page-header
     = @project.name
-    - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+    - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] || current_user.admin
       .pull-right
         = link_to "Edit", edit_project_path(@project), class: "btn btn-info"
 
@@ -13,7 +13,7 @@
 %br
 = link_to pluralize(@project.memberships.count, "Membership"), project_memberships_path(@project, @membership)
 
-- if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+- if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] || current_user.admin
   .well
     %h4 Delete
     %p= "Deleting this project will also delete #{pluralize(@project.memberships.count, 'membership')}, #{pluralize(@project.tasks.count, 'task')} and associated comments"

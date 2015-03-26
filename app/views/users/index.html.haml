@@ -14,9 +14,15 @@
       %tr
         %td.col-md-4
           = link_to "#{user.first_name} #{user.last_name}", user_path(user)
-        %td.col-md-10
-          - if user.id == current_user.id
+        - if current_user.admin
+          %td.col-md-10
             = mail_to user.email
-        %td.txt-right
-          - if user.id == current_user.id
+          %td.txt-right
             = link_to "Edit", edit_user_path(user)
+        - else
+          %td.col-md-10
+            - if user.id == current_user.id
+              = mail_to user.email
+          %td.txt-right
+            - if user.id == current_user.id
+              = link_to "Edit", edit_user_path(user)
