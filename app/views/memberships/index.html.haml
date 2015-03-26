@@ -48,3 +48,4 @@
                     %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
                 - else
                   %td= membership.role
+                  %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
