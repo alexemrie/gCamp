@@ -17,4 +17,8 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def admin_or_member?(project)
+    self.admin ||= self.memberships.find_by(project_id: project.id) != nil
+  end
 end

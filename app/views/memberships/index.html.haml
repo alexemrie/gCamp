@@ -46,6 +46,9 @@
                     %td You are the last owner
                   -else
                     %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
-                - else
+                - elsif current_user.id == membership.user_id
                   %td= membership.role
                   %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
+                - else
+                  %td= membership.role
+                  %td

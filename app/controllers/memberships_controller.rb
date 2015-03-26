@@ -2,14 +2,8 @@ class MembershipsController < PrivateController
 
   before_action :find_and_set_project
   before_action :find_and_set_membership, only: [:update, :destroy]
+  before_action :ensure_project_member_or_admin
   before_action :verify_at_least_one_owner, only: [:update, :destroy]
-
-  before_action only: [:edit, :update, :destroy] do
-    unless @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
-      flash[:error] = "You do not have access"
-      redirect_to project_path(@project)
-    end
-  end
 
   before_action do
     unless @project.users.pluck(:id).include?(current_user.id)
@@ -45,16 +39,15 @@ class MembershipsController < PrivateController
 
   def destroy
     @membership.destroy
-    flash[:success] = "#{membership.user.full_name} was successfully removed"
-    if current_user.id == membership.user_id
+    flash[:success] = "#{@membership.user.full_name} was successfully removed"
+    if current_user.id == @membership.user_id
       redirect_to projects_path
     else
-      redirect_to project_memberships_path(membership.project_id)
+      redirect_to project_memberships_path(@membership.project_id)
     end
   end
 
   private
-
 
   def membership_params
     params.require(:membership).permit(:role, :user_id, :project_id)
