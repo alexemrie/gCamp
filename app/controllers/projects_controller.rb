@@ -1,5 +1,5 @@
 class ProjectsController < PrivateController
-  before_action :find_and_set_project, only: [:show, :edit, :update]
+  before_action :find_and_set_project, only: [:show, :edit, :update, :destroy]
   before_action :ensure_project_admin_or_member, only: [:show, :create, :update, :destroy]
   before_action :ensure_project_admin_or_owner, only: [:edit, :update, :destroy]
 
@@ -37,13 +37,13 @@ class ProjectsController < PrivateController
   def show
   end
 
-  private
-
   def destroy
     @project.destroy
     redirect_to projects_path
     flash[:success] = "Project was successfully deleted"
   end
+
+  private
 
   def project_params
     params.require(:project).permit(:name)

@@ -9,20 +9,12 @@ def create_user(options={})
   }.merge(options))
 end
 
-# def create_project(options={})
-#   Project.create!({
-#     name: "Do Stuff"
-#   }.merge(options))
-# end
-
 def create_project(options = {})
   defaults = {
     name: "Do Stuff"
   }
   project = Project.create!(defaults.merge(options))
-
 end
-
 
 def create_task(options={})
   Task.create!({
@@ -31,7 +23,6 @@ def create_task(options={})
     due_date: "12/31/2015"
   }.merge(options))
 end
-
 
 def create_comment(options={})
   Comment.create!({
