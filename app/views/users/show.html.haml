@@ -9,6 +9,6 @@
   %dd= @user.first_name
   %dt Last name
   %dd= @user.last_name
-  - if @user.id == current_user.id || current_user.admin
+  - if @user.id == current_user.id || current_user.admin || current_user.match_user_projects(@user)
     %dt Email
     %dd= mail_to @user.email

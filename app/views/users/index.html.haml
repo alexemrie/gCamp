@@ -21,7 +21,7 @@
             = link_to "Edit", edit_user_path(user)
         - else
           %td.col-md-10
-            - if user.id == current_user.id
+            - if user.id == current_user.id || current_user.match_user_projects(user)
               = mail_to user.email
           %td.txt-right
             - if user.id == current_user.id

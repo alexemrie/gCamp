@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
   def admin_or_owner?(project)
     self.admin || self.memberships.find_by(project_id: project.id) != nil && self.memberships.find_by(project_id: project.id).role == 'Owner'
   end
+
+  def match_user_projects(user)
+    (self.memberships.pluck(:project_id) & user.memberships.pluck(:project_id)).any?
+  end
 end

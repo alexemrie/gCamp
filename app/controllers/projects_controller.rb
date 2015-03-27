@@ -1,6 +1,6 @@
 class ProjectsController < PrivateController
   before_action :find_and_set_project, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_project_admin_or_member, only: [:show, :create, :update, :destroy]
+  before_action :ensure_project_admin_or_member, only: [:show, :update, :destroy]
   before_action :ensure_project_admin_or_owner, only: [:edit, :update, :destroy]
 
   def index
