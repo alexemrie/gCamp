@@ -8,7 +8,7 @@ class AuthenticationController < ApplicationController
     if @user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       flash[:success] = "You have successfully signed in"
-      redirect_to projects_path
+      redirect_to session[:return_to] || projects_path
     else
       @user = User.new(email: params[:email])
       @user.errors[:base] << "Email / Password combination is invalid"
