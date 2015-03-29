@@ -39,8 +39,6 @@ feature 'managing users' do
       expect(page).to have_content "Bill"
       expect(page).to have_content "Smith"
 
-      click_on "Bill Smith"
-
       #Update an existing user
       visit edit_user_path(@user)
 
@@ -49,6 +47,7 @@ feature 'managing users' do
       fill_in "Email", :with => "niceguy11@gmail.com"
       fill_in "Password", :with => "password123"
       fill_in "Password confirmation", :with => "password123"
+      fill_in "Pivotal tracker token", :with => "lskjdfl;ksajlf"
 
       click_on "Update User"
 
