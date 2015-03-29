@@ -1,7 +1,7 @@
 %h1
   .page-header
     = "#{@user.first_name} #{@user.last_name}"
-    - if @user.id == current_user.id
+    - if @user.id == current_user.id || current_user.admin
       = link_to 'Edit', edit_user_path(@user), class: "btn btn-info pull-right"
 
 %dl.dl-horizontal
