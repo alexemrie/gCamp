@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'pry'
 gem 'haml'
 gem 'haml-rails'
+gem 'faraday', '~> 0.9.1'
+
 
 gem 'rails_12factor', '~> 0.0.3', group: :production
 gem 'bootstrap-sass', '~> 3.3.3'

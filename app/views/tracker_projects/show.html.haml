@@ -1,0 +1,23 @@
+.page-header
+  .pull-right
+    (Showing first 500)
+  %h1= "Stories for #{@project}"
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th{:colspan => 1}
+        Story
+      %th{:colspan => 1}
+        Estimate
+      %th{:colspan => 1}
+        Labels
+      %th{:colspan => 1}
+        Current State
+  %tbody
+    - @stories.first(500).each do |story|
+      %tr
+        %td= link_to story[:name], story[:url]
+        %td= story[:estimate]
+        %td= story[:labels].map {|hash| hash[:name]}.join(', ')
+        %td= story[:current_state]

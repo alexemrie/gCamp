@@ -29,11 +29,4 @@ class User < ActiveRecord::Base
   def match_user_projects(user)
     (self.memberships.pluck(:project_id) & user.memberships.pluck(:project_id)).any?
   end
-
-  def hide_token(token)
-    if token
-      number_of_asterisks = '*'* (token.length - 4)
-      token[0..3] + number_of_asterisks
-    end
-  end
 end

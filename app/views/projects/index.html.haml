@@ -2,6 +2,7 @@
   .page-header
     = link_to 'New Project', new_project_path(@project), class: "btn btn-info pull-right"
     Projects
+
 %table.table
   %thead
     %tr
@@ -24,3 +25,17 @@
             = link_to project.name, project_path(project)
           %td.col-md-2
             = link_to project.tasks.count, project_tasks_path(project, @task)
+
+- if current_user.pivotal_tracker_token
+  %h1
+    .page-header
+      Pivotal Tracker Projects
+  %table.table
+    %thead
+      %tr
+        %th{:colspan => "1"}
+          Name
+    %tbody
+      %tr
+        - @tracker_projects.each do |project|
+          %td= link_to project[:name], tracker_project_path(project[:id], name: project[:name])
