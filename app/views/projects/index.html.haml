@@ -36,6 +36,6 @@
         %th{:colspan => "1"}
           Name
     %tbody
-      %tr
-        - @tracker_projects.each do |project|
+      - @tracker_projects.each do |project|
+        %tr
           %td= link_to project[:name], tracker_project_path(project[:id], name: project[:name])
