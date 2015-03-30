@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProjectsController do
   before :each do
-    @user = create_user
+    @user = create_user(admin: false)
     session[:user_id] = @user.id
   end
 
@@ -52,14 +52,31 @@ describe ProjectsController do
 
   describe "PATCH #update" do
     describe "on success" do
-      it "updates a project with valid attributes" do
-        project = create_project(name: "Build Shed")
-        membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-        expect {
-          patch :update, id: project.id, project: {name: "Build Barn"}}.to change {project.reload.name}.from("Build Shed").to("Build Barn")
+      describe "updates a project with valid attributes" do
+        it "allows a project owner to update a project" do
+          project = create_project(name: "Build Shed")
+          membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+          expect {
+            patch :update, id: project.id, project: {name: "Build Barn"}}.to change {project.reload.name}.from("Build Shed").to("Build Barn")
 
-        expect(flash[:success]).to eq "Project was successfully updated"
-        expect(response).to redirect_to project_path(project)
+          expect(flash[:success]).to eq "Project was successfully updated"
+          expect(response).to redirect_to project_path(project)
+        end
+
+        it 'does not allow a project member to update a project' do
+          session.clear
+          user = create_user(admin: false)
+          session[:user_id] = user.id
+
+          project = create_project
+          membership = create_membership(user_id: user.id, project_id: project.id, role: "Member")
+
+          expect {
+            patch :update, id: project.id, project: {name: "Build Barn"}}.to_not change {project.reload.name}
+
+          expect(flash[:error]).to eq("You do not have access")
+          expect(response).to redirect_to projects_path
+        end
       end
     end
 
@@ -76,16 +93,45 @@ describe ProjectsController do
     end
   end
 
-  describe "DELETEE #destroy" do
-    it "deletes a project" do
-      project = create_project
-      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-      expect {
-        delete :destroy, id: project.id
-      }.to change { Project.all.count }.by(-1)
+  describe "DELETE #destroy" do
+    describe "deletes a project" do
+      it 'allows a project owner to delete a project' do
+        project = create_project
+        membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+        expect {
+          delete :destroy, id: project.id
+        }.to change { Project.all.count }.by(-1)
 
-      expect(flash[:success]).to eq "Project was successfully deleted"
-      expect(response).to redirect_to projects_path
+        expect(flash[:success]).to eq "Project was successfully deleted"
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'allows an admin to delete a project' do
+        session.clear
+        admin_user = create_user(admin: true)
+        session[:user_id] = admin_user.id
+
+        project = create_project
+
+        expect {
+          delete :destroy, id: project.id
+        }.to change { Project.all.count }.by(-1)
+
+        expect(flash[:success]).to eq "Project was successfully deleted"
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'does not allow a project member to delete a project' do
+        project = create_project
+        membership = create_membership(project_id: project.id, user_id: @user.id, role: "Member")
+
+        expect {
+          delete :destroy, id: project.id
+        }.to_not change { Project.all.count }
+
+        expect(flash[:error]).to eq("You do not have access")
+        expect(response).to redirect_to projects_path
+      end
     end
   end
 end
