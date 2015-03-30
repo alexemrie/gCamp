@@ -103,7 +103,7 @@ describe MembershipsController do
       end
     end
 
-    it 'allows a user(non-owner) to delete own memberships' do
+    it 'allows a user(non-owner) to delete their own memberships' do
       session.clear
       user = create_user(admin:false)
       session[:user_id] = user.id
