@@ -17,15 +17,10 @@ describe AuthenticationController do
     it "authenticates a user when valid parameters are passed" do
       user = create_user(password: "password", password_confirmation: "password")
 
-
-
       post :create, user: { first_name: user.first_name, last_name: user.last_name, email: user.email, password: "password",
            password_confirmation: "password"}
 
       expect(session[:user_id]).to eq user.id
-
-
-
     end
   end
 end
