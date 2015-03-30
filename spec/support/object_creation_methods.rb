@@ -34,7 +34,7 @@ end
 
 def create_membership(options={})
   Membership.create!({
-    role: "Member",
+    role: "Owner",
     project_id: create_project.id,
     user_id: create_user.id
   }.merge(options))

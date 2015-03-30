@@ -4,7 +4,7 @@ class MembershipsController < PrivateController
   before_action :find_and_set_membership, only: [:update, :destroy]
   before_action :ensure_project_member_or_admin
   before_action :verify_at_least_one_owner, only: [:update, :destroy]
-  
+
   def index
     @membership = @project.memberships.new
   end
