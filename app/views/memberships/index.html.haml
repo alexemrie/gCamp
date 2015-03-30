@@ -20,7 +20,7 @@
             %li
               = message
 
-- if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+- if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] || current_user.admin
   .row
     .col-md-8
       .well
@@ -39,7 +39,7 @@
             = form_for [@project, membership], html: {class: "form-inline"}  do |f|
               %tr
                 %td= link_to "#{membership.user.full_name}", user_path(membership.user)
-                - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"]
+                - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] || current_user.admin
                   %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
                   %td= f.submit "Update", class: "btn btn-primary"
                   - if current_user.id == membership.user_id && @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] && @project.memberships.where(role: "Owner").count == 1
