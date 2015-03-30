@@ -52,7 +52,6 @@ feature "Logging in users" do
       end
 
       expect(page).to have_content("Password can't be blank")
-      expect(page).to have_content("Password confirmation can't be blank")
       expect(page).to have_content("First name can't be blank")
       expect(page).to have_content("Last name can't be blank")
       expect(page).to have_content("Email can't be blank")

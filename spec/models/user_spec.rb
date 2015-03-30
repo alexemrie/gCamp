@@ -53,13 +53,6 @@ describe User do
     expect(user.errors[:password]).to include("can't be blank")
   end
 
-  it "requires a password confirmation" do
-    valid_attributes[:password_confirmation] = nil
-    user = User.new(valid_attributes)
-    user.valid?
-    expect(user.errors[:password_confirmation]).to include("can't be blank")
-  end
-
   it "requires a matching password / password_confirmation" do
     valid_attributes[:password_confirmation] = "abc"
     user = User.new(valid_attributes)
