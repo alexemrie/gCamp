@@ -56,7 +56,7 @@ feature 'managing users' do
       click_on "Edit"
 
       #Delete a user
-      click_on "Delete"
+      click_on "Delete User"
       expect(current_path).to eql "/"
       expect(page).to_not have_content "Bill"
       expect(page).to_not have_content "Smith"

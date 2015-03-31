@@ -36,11 +36,15 @@ class UsersController < PrivateController
   end
 
   def destroy
-    User.destroy(params[:id])
-
-    session.clear
-    flash[:success] = "User was successfully deleted"
-    redirect_to root_path
+    if @user.id == current_user.id
+      @user.destroy
+      session.clear
+      flash[:success] = "User was successfully deleted"
+      redirect_to root_path
+    else
+      flash[:success] = "User was successfully deleted"
+      redirect_to users_path
+    end
   end
 
   private

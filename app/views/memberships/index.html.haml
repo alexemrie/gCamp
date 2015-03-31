@@ -42,7 +42,9 @@
                 - if @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] || current_user.admin
                   %td= f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {}, {class: "form-control"})
                   %td= f.submit "Update", class: "btn btn-primary"
-                  - if current_user.id == membership.user_id && @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] && @project.memberships.where(role: "Owner").count == 1
+                  - if current_user.admin && @project.memberships.where(role: "Owner").count == 1 && @project.memberships.where(user_id: membership.user_id).pluck(:role)==["Owner"]
+                    %td You are the last owner
+                  - elsif current_user.id == membership.user_id && @project.memberships.where(user_id: current_user.id).pluck(:role)==["Owner"] && @project.memberships.where(role: "Owner").count == 1
                     %td You are the last owner
                   -else
                     %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
