@@ -17,6 +17,17 @@ describe ProjectsController do
     end
   end
 
+  describe 'GET #show' do
+    it 'displays the project show page for a project member' do
+      project = create_project(name: "Build Shed")
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+
+      get :show, id: project.id
+
+      expect(response).to render_template :show
+    end
+  end
+
   describe "GET #new" do
     it "assigns a new Project object" do
       get :new
