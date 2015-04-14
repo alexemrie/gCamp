@@ -3,32 +3,27 @@
   %p Your life, organized.
 
 .row
-  .col-md-4
+  .column.column-three
     %p.lead
       =image_tag("writing_tablet.jpg", class: "img-responsive")
-  .col-md-4
-    %p.lead
-      =image_tag("writing_paper.jpg", class:"img-responsive")
-  .col-md-4
-    %p.lead
-      =image_tag("looking_at_computer.jpg", class:"img-responsive")
-
-.row
-  .col-md-4
     .panel.panel-primary
       .panel-heading
         Tasks
       .panel-body
         Grouped by projects and lists. Just the way you like'em
 
-  .col-md-4
+  .column.column-three
+    %p.lead
+      =image_tag("writing_paper.jpg", class:"img-responsive")
     .panel.panel-primary
       .panel-heading
         Permissions
       .panel-body
         Fine-grained permissions
 
-  .col-md-4
+  .column.column-three
+    %p.lead
+      =image_tag("looking_at_computer.jpg", class:"img-responsive")
     .panel.panel-primary
       .panel-heading
         Comments
@@ -36,6 +31,7 @@
         %ul
           %li Comments on tasks and documents
           %li Get email notifications
+
 
 -@quotes.each do |key, value|
   %p= value

@@ -35,3 +35,82 @@
 .text-muted{
   padding-bottom:1.5em,
 }
+
+// custom css
+
+.columns:before,
+.columns:after {
+  content:"";
+  display:table;
+  // margin: 0 0 $pad 0;
+}
+.columns:after {
+  clear:both;
+}
+.columns {
+  zoom:1;
+  overflow: hidden;
+  border-bottom: 1px solid white;
+  text-align: center;
+}
+
+.column {
+  float: left;
+  font-size: 15px;
+}
+
+.column.column-one {
+  width: 100%;
+}
+
+.column.column-two {
+  width: 50%;
+}
+
+.column.column-three {
+  width: 33.33333%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.column.column-four {
+  width: 25%;
+}
+
+.column.column-five {
+  width: 20%;
+}
+
+.column.column-six {
+  width: 16.66%;
+}
+
+.column.column-seven {
+  width: 14.28%;
+}
+
+.column.column-eight {
+  width: 12.5%;
+}
+
+.column.column-nine {
+  width: 11.11%;
+}
+
+.column.column-ten {
+  width: 10%;
+}
+
+.column.column-eleven {
+  width: 9.09%;
+}
+
+.column.column-twelve {
+  width: 8.33%;
+}
+
+.column.column-sixteen {
+  width: 6.25%;
+}
